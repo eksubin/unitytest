@@ -46,7 +46,7 @@ public class Toastexample {
     Scanner myscanner;
     boolean start_loop = true;
     BluetoothAdapter myBluetooth;
-//
+
     ////////////// data string
     String snaptext;
     Paint paint;
@@ -87,26 +87,40 @@ public class Toastexample {
                 Toast.makeText(this.context,"communication possible",Toast.LENGTH_LONG).show();
                 Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 context.startActivity(turnBTon);
+                startthread();
 
             }
 
         }
+
+    ////////////////////////////////// extr stuffs to be added
+    //trying to implement thread for establishing communincation
+
 
     public void startthread()
     {
         new Thread(new Runnable() {
             public void run() {
 
-
+                try {
+                    if (btSocket == null || !isBtConnected) {
+                        myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
+                        positive = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
+                        btSocket = positive.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                        BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                        btSocket.connect();//start connection
+                        ConnectSuccess = true;
+                    }
+                } catch (IOException e) {
+                    ConnectSuccess = false;//if the try failed, you can check the exception here
+                }
                 }
 
         }).start();
     }
 
-    ////////////////////////////////// extr stuffs to be added
-    //trying to implement thread for establishing communincation
 
-    //Thread mythread = new Thread(runnable);
+
 
 
 }
