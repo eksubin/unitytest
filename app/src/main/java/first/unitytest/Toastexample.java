@@ -52,6 +52,7 @@ public class Toastexample {
                 //Ask to the user turn the bluetooth on
                 Intent turnBTon = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
                 context.startActivity(turnBTon);
+                //hello
             }
 
         }
