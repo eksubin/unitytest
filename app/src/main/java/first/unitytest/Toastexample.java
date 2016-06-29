@@ -46,7 +46,7 @@ public class Toastexample {
     Scanner myscanner;
     boolean start_loop = true;
     BluetoothAdapter myBluetooth;
-
+//
     ////////////// data string
     String snaptext;
     Paint paint;
